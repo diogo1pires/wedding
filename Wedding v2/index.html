@@ -1,0 +1,600 @@
+<html lang="en" class="mdl-js">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diogo&amp;Patricia</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Lato:wght@400;700&amp;display=swap" rel="stylesheet">
+
+  <!-- Material Design Lite -->
+  <link rel="stylesheet" href="https://unpkg.com/material-design-lite/material.min.css">
+  <script defer src="https://unpkg.com/material-design-lite/material.min.js"></script>
+
+
+  <style>
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+
+    #anim {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      z-index: -1;
+    }
+
+    .open-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 14px 28px;
+      font-size: 16px;
+      border-radius: 6px;
+      background-color: #c04e4e;
+      color: white;
+      border: none;
+      cursor: pointer;
+      z-index: 10;
+    }
+    .open-btn:hover { background-color: #a03a3a; }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: #fff6f0;
+      border-radius: 12px;
+      width: 440px;
+      max-width: 100%;
+      max-height: 90vh;
+      padding: 30px 24px;
+      overflow-y: auto;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      position: relative;
+	   -webkit-overflow-scrolling: touch;
+    }
+
+    h4 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 38px;
+      color: #c04e4e;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .close {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #c04e4e;
+    }
+
+    .mdl-textfield { width: 100%; }
+    .submit-btn {
+      width: 100%;
+      margin-top: 20px;
+      font-family: 'Lato', sans-serif;
+      background-color: #c04e4e;
+      color: white;
+    }
+    .submit-btn:hover { background-color: #a03a3a; }
+
+    .status {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .conditional-section { display: none; margin-top: 15px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; background-color: #fafafa; }
+
+    /* Mobile responsiveness */
+    @media screen and (max-width: 480px) {
+      .modal-content { width: 85%; padding: 25px 20px; max-height: 95vh; border-radius: 10px; }
+	  
+	  #anim {
+	      object-fit: cover;
+	  }
+      h4 { font-size: 28px; }
+      .submit-btn { font-size: 16px; }
+    }
+    @media screen and (max-width: 360px) {
+      .modal-content { width: 90%; padding: 20px; border-radius: 8px; max-height: 98vh; }
+	  	  #anim {
+	      object-fit: cover;
+	  }
+    }
+.loader-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.loader-overlay.show{ display: flex; }
+
+.loader-card{
+  background: #fff6f0;
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  width: min(360px, 92vw);
+  text-align: center;
+}
+
+.spinner{
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 5px solid rgba(192,78,78,.25);
+  border-top-color: #c04e4e;
+  margin: 0 auto 12px auto;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loader-text{
+  font-weight: 700;
+  color: #6b4e71;
+  font-family: 'Lato', sans-serif;
+}
+.mdl-textfield--floating-label.is-focused .mdl-textfield__label, .mdl-textfield--floating-label.is-dirty .mdl-textfield__label, .mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
+color:#c04e4e
+}
+.mdl-textfield__label{
+color:#c04e4e
+}
+.mdl-radio__inner-circle {
+background:#c04e4e}
+.mdl-radio.is-checked .mdl-radio__outer-circle{
+border-color:#c04e4e}
+.mdl-textfield__label:after {
+background-color:#c04e4e
+}
+.rsvp-deadline {
+  background: rgba(192, 78, 78, 0.08);
+  color: #6b4e71;
+  border-left: 4px solid #c04e4e;
+  padding: 12px 14px;
+  margin: 0 0 18px 0;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+}
+.open-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(30px);
+  padding: 14px 28px;
+  font-size: 16px;
+  border-radius: 6px;
+  background-color: #c04e4e;
+  color: white;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+
+  /* hidden initially */
+  opacity: 0;
+  pointer-events: none;
+
+  /* animation */
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(.22,.61,.36,1);
+}
+
+/* Visible state */
+.open-btn.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+/* Gentle pulse once visible */
+.open-btn.pulse {
+  animation: pulseRSVP 1.6s ease-in-out infinite;
+}
+
+@keyframes pulseRSVP {
+  0%   { transform: translateX(-50%) scale(1); }
+  50%  { transform: translateX(-50%) scale(1.04); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+  </style>
+</head>
+<body>
+
+
+  <video id="anim" autoplay muted playsinline preload="metadata">
+    <source src="video/wedding.webm" type="video/webm">
+    <source src="video/wedding.mp4" type="video/mp4">
+    Seu navegador não suporta o elemento <code>video</code>.
+  </video>
+
+  <button class="open-btn" onclick="openModal()">RSVP</button>
+
+  <div id="formModal" class="modal" style="display:none">
+    <div class="modal-content">
+
+      <span class="close" onclick="closeModal()">×</span>
+      <h4>Casamento RSVP 💍</h4>
+	  	<div class="rsvp-deadline">
+  ⏰ Por favor confirme a sua presença até <strong>31 de março</strong>.
+</div>
+      <form id="rsvpForm" style ="overflow: auto;max-height: 55vh;">
+<!-- Nome do convidado -->
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" required>
+      <input class="mdl-textfield__input" type="text" id="guestName" name="guestName" required>
+      <label class="mdl-textfield__label" for="guestName">Primeiro e último nome</label>
+    </div>
+	 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+      <input class="mdl-textfield__input" type="email" id="email" name="email" required>
+      <label class="mdl-textfield__label" for="email">Email</label>
+    </div>
+
+    <!-- Plus One -->
+	<div style="width:100%;padding: 20px 0;">
+    <label style = "color:#c04e4e">Vai trazer um acompanhante (+1)?</label>
+    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="plusOneYes">
+      <input type="radio" id="plusOneYes" class="mdl-radio__button" name="plusOneOption" value="sim">
+      <span class="mdl-radio__label">Sim</span>
+    </label>
+    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="plusOneNo">
+      <input type="radio" id="plusOneNo" class="mdl-radio__button" name="plusOneOption" value="nao" checked>
+      <span class="mdl-radio__label">Não</span>
+    </label>
+	</div>
+    <!-- Nome do +1 (condicional) -->
+    <div class="conditional-section" id="plusOneDetails" style="display:none;">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" id="plusOneName" name="plusOneName">
+        <label class="mdl-textfield__label" for="plusOneName">Primeiro e último nome do acompanhante</label>
+      </div>
+    </div>
+
+    <!-- Crianças -->
+	<div style="width:100%;padding: 20px 0;">
+    <label style = "color:#c04e4e">Irá trazer crianças?</label>
+    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="childrenYes">
+      <input type="radio" id="childrenYes" class="mdl-radio__button" name="children" value="sim">
+      <span class="mdl-radio__label">Sim</span>
+    </label>
+    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="childrenNo">
+      <input type="radio" id="childrenNo" class="mdl-radio__button" name="children" value="nao" checked>
+      <span class="mdl-radio__label">Não</span>
+    </label>
+	</div>
+
+    <!-- Detalhes das crianças -->
+    <div class="conditional-section" id="childrenDetails" style="display:none;">
+      <p style="margin:0 0 10px 0;"><strong>Informe nomes e idades das crianças:</strong></p>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" id="child1" name="child1">
+        <label class="mdl-textfield__label" for="child1">Criança 1: Nome e idade</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" id="child2" name="child2">
+        <label class="mdl-textfield__label" for="child2">Criança 2: Nome e idade</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" id="child3" name="child3">
+        <label class="mdl-textfield__label" for="child3">Criança 3: Nome e idade</label>
+      </div>
+    </div>
+
+    <!-- Restrições alimentares -->
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <textarea class="mdl-textfield__input" type="text" rows="3" id="foodNotes" name="foodNotes"></textarea>
+      <label class="mdl-textfield__label" for="foodNotes">Restrições alimentares ou alergias (opcional)</label>
+    </div>
+
+    <!-- Observações -->
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <textarea class="mdl-textfield__input" type="text" rows="3" id="notes" name="notes"></textarea>
+      <label class="mdl-textfield__label" for="notes">Observações adicionais (opcional)</label>
+    </div>
+
+
+        <!-- Submit -->
+        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised submit-btn">Enviar RSVP</button>
+      </form>
+      <div id="status" class="status"></div>
+    </div>
+  </div>
+<div id="loader" class="loader-overlay" aria-hidden="true">
+  <div class="loader-card">
+    <div class="spinner"></div>
+    <div class="loader-text">A enviar RSVP…</div>
+  </div>
+</div>
+  <script>
+    function openModal() { document.getElementById("formModal").style.display = "flex"; }
+    function closeModal() { document.getElementById("formModal").style.display = "none"; }
+    window.onclick = e => { if(e.target === document.getElementById("formModal")) closeModal(); }
+
+	 // Mostrar/ocultar seção do +1
+  const plusOneYes = document.getElementById('plusOneYes');
+  const plusOneNo = document.getElementById('plusOneNo');
+  const plusOneDetails = document.getElementById('plusOneDetails');
+
+  plusOneYes.addEventListener('change', () => {
+    plusOneDetails.style.display = 'block';
+  });
+  plusOneNo.addEventListener('change', () => {
+    plusOneDetails.style.display = 'none';
+  });  // Mostrar/ocultar seção das crianças
+  const childrenYes = document.getElementById('childrenYes');
+  const childrenNo = document.getElementById('childrenNo');
+  const childrenDetails = document.getElementById('childrenDetails');
+
+  childrenYes.addEventListener('change', () => {
+    childrenDetails.style.display = 'block';
+  });
+  childrenNo.addEventListener('change', () => {
+    childrenDetails.style.display = 'none';
+  });
+
+function showLoader(msg = "A enviar RSVP…") {
+  const el = document.getElementById("loader");
+  el.querySelector(".loader-text").textContent = msg;
+  el.classList.add("show");
+  el.setAttribute("aria-hidden", "false");
+}
+
+function hideLoader() {
+  const el = document.getElementById("loader");
+  el.classList.remove("show");
+  el.setAttribute("aria-hidden", "true");
+}
+document.getElementById("rsvpForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const submitBtn = e.target.querySelector('button[type="submit"]');
+  submitBtn.disabled = true;
+   showLoader("A enviar RSVP…");
+  const data = {
+    guestName: document.getElementById("guestName").value,
+    plusOneName: document.getElementById("plusOneName").value,
+    childrenDetails: [
+      document.getElementById("child1")?.value,
+      document.getElementById("child2")?.value,
+      document.getElementById("child3")?.value
+    ].filter(v => v).join(";"),
+    foodNotes: document.getElementById("foodNotes")?.value,
+    notes: document.getElementById("notes")?.value,
+	code:window.__RSVP_CODE__ || '',
+	email: document.getElementById("email").value
+  };
+
+  try {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbyKbOWma2VPw2AAGwW5Bzt-svx7rxKDU-35JsCN8sLk7PyrnGLP4D-knQrSupQHr7ub9w/exec", {
+ method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "text/plain;charset=utf-8" } // avoids preflight in many cases
+    });
+
+    const result = await response.json();
+	console.log(result)
+    if(result.status === "success") {
+      document.getElementById("status").textContent = "RSVP enviado com sucesso 💖";
+      document.getElementById("status").style.color = "green";
+      document.getElementById("rsvpForm").reset();
+    } else {
+      throw new Error(result.message || "Erro desconhecido");
+    }
+
+  } catch (err) {
+  console.log(err)
+    document.getElementById("status").textContent = "Erro ao enviar: " + err.message;
+    document.getElementById("status").style.color = "red";
+  }finally {
+    hideLoader();
+    submitBtn.disabled = false;
+  }
+});
+function getQueryParam(name) {
+  const url = new URL(window.location.href);
+  return url.searchParams.get(name);
+}
+
+async function loadExistingRSVP(code) {
+  const url =
+    "https://script.google.com/macros/s/AKfycbyKbOWma2VPw2AAGwW5Bzt-svx7rxKDU-35JsCN8sLk7PyrnGLP4D-knQrSupQHr7ub9w/exec?code=" +
+    encodeURIComponent(code);
+
+  const res = await fetch(url);
+  const payload = await res.json();
+  if (payload.status !== "success") throw new Error(payload.message || "Not found");
+
+  const d = payload.data;
+
+  setMdlValue("guestName", d.guestName);
+  setMdlValue("email", d.email || d.guestEmail || "");
+  setMdlValue("plusOneName", d.plusOneName);
+  setMdlValue("foodNotes", d.foodNotes);
+  setMdlValue("notes", d.notes);
+
+  const children = (d.childrenDetails || "")
+    .split(";")
+    .map(s => s.trim())
+    .filter(Boolean);
+
+  setMdlValue("child1", children[0] || "");
+  setMdlValue("child2", children[1] || "");
+  setMdlValue("child3", children[2] || "");
+
+  applyDerivedRadiosFromSheet(d);
+  refreshMDL();
+
+  // store code so submit updates row
+  window.__RSVP_CODE__ = d.code;
+
+  // open modal automatically for editing
+  openModal();
+}
+  // if using MDL floating labels, update them:
+  if (window.componentHandler) componentHandler.upgradeDom();
+function setRadio(name, value) {
+  const el = document.querySelector(`input[name="${name}"][value="${value}"]`);
+  if (el) el.checked = true;
+}
+
+function toggleSection(sectionId, show) {
+  const el = document.getElementById(sectionId);
+  if (el) el.style.display = show ? "block" : "none";
+}
+
+function applyMdlUpgrade() {
+  if (window.componentHandler) componentHandler.upgradeDom();
+}
+
+function applyDerivedRadiosFromSheet(data) {
+  const plusOneHasText = (data.plusOneName || "").trim().length > 0;
+  const childrenHasText = (data.childrenDetails || "").trim().length > 0;
+
+  // +1 radios + section
+  setRadio("plusOneOption", plusOneHasText ? "sim" : "nao");
+  toggleSection("plusOneDetails", plusOneHasText);
+
+  // children radios + section
+  setRadio("children", childrenHasText ? "sim" : "nao");
+  toggleSection("childrenDetails", childrenHasText);
+
+  applyMdlUpgrade();
+}
+function setMdlValue(inputId, value) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+
+  input.value = value ?? "";
+
+  const wrapper = input.closest(".mdl-textfield");
+  if (wrapper) {
+    // make label float if value exists
+    if (input.value.trim() !== "") wrapper.classList.add("is-dirty");
+    else wrapper.classList.remove("is-dirty");
+
+    // clear red underline until user submits/edits
+    wrapper.classList.remove("is-invalid");
+  }
+
+  // clears any custom validity (if you used it)
+  if (input.setCustomValidity) input.setCustomValidity("");
+}
+
+function refreshMDL() {
+  if (window.componentHandler) componentHandler.upgradeDom();
+}
+
+window.addEventListener("DOMContentLoaded", async () => {
+  const code = getQueryParam("code");
+  if (code) {
+    try {
+      await loadExistingRSVP(code);
+    } catch (e) {
+
+    }
+  }
+  
+  function enableTextareaAutoScroll() {
+  const modalContent = document.querySelector(".modal-content");
+  if (!modalContent) return;
+
+  modalContent.addEventListener("focusin", (e) => {
+    const target = e.target;
+    if (target.tagName === "TEXTAREA" || target.tagName === "INPUT") {
+      // Small delay lets the keyboard open first
+      setTimeout(() => {
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+      }, 300);
+    }
+  });
+}
+
+enableTextareaAutoScroll();
+});
+
+(function () {
+  const rsvpBtn = document.querySelector(".open-btn");
+  const video = document.getElementById("anim");
+  if (!rsvpBtn || !video) return;
+
+  const url = new URL(window.location.href);
+  const isEditing = !!url.searchParams.get("code"); 
+
+  let shown = false;
+
+  function showRSVP() {
+    if (shown) return;
+    shown = true;
+    rsvpBtn.classList.add("show");
+    setTimeout(() => rsvpBtn.classList.add("pulse"), 700);
+  }
+
+  function hideRSVP() {
+    if (isEditing) return;
+    shown = false;
+    rsvpBtn.classList.remove("show", "pulse");
+  }
+
+  if (isEditing) {
+    showRSVP();
+    return;
+  }
+
+  const SHOW_LAST_SECONDS = 16;   
+  const SHOW_AFTER_RATIO = 0.92; 
+
+  function checkVideoProgress() {
+    if (!isFinite(video.duration) || video.duration <= 0) return;
+
+    const remaining = video.duration - video.currentTime;
+    const ratio = video.currentTime / video.duration;
+
+    if (remaining <= SHOW_LAST_SECONDS || ratio >= SHOW_AFTER_RATIO) {
+      showRSVP();
+    }
+  }
+
+  video.addEventListener("timeupdate", checkVideoProgress);
+  hideRSVP();
+})();
+  </script>
+</body>
+</html>
